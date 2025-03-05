@@ -25,15 +25,16 @@ interface TaskFormProps {
   open: boolean;
   onClose: () => void;
   task?: Task;
+  defaultPriority?: Task['priority'];
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, task }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ open, onClose, task, defaultPriority }) => {
   const { theme } = useThemeContext();
   const { addTask, updateTask } = useTaskContext();
   const [title, setTitle] = useState(task?.title || '');
   const [description, setDescription] = useState(task?.description || '');
   const [priority, setPriority] = useState<Task['priority']>(
-    task?.priority || 'important-not-urgent'
+    task?.priority || defaultPriority || 'important-not-urgent'
   );
   const [dueDate, setDueDate] = useState<Date | null>(task?.dueDate ? new Date(task.dueDate) : null);
   const [errors, setErrors] = useState<{ title?: string }>({});

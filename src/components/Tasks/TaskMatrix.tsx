@@ -15,6 +15,7 @@ const TaskMatrix: React.FC = () => {
   const { getTasksByPriority, toggleTaskCompletion, deleteTask } = useTaskContext();
   const [openTaskForm, setOpenTaskForm] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined);
+  const [priority, setPriority] = useState<Task['priority']>('important-not-urgent');
 
   const quadrants = [
     {
@@ -74,6 +75,7 @@ const TaskMatrix: React.FC = () => {
                   onClick={() => {
                     setSelectedTask(undefined);
                     setOpenTaskForm(true);
+                    setPriority(quadrant.priority);
                   }}
                   variant="outlined"
                   sx={{
@@ -161,6 +163,7 @@ const TaskMatrix: React.FC = () => {
         open={openTaskForm}
         onClose={() => setOpenTaskForm(false)}
         task={selectedTask}
+        defaultPriority={selectedTask ? undefined : priority}
       />
     </Box>
   );

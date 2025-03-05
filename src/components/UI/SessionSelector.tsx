@@ -151,13 +151,14 @@ const SessionSelector: React.FC = () => {
         PaperProps={{
           sx: {
             borderRadius: 2,
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)'
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+            backgroundColor: theme === 'dark' ? '#1e1e1e' : '#ffffff'
           }
         }}
       >
         <DialogTitle sx={{ 
           pb: 1,
-          color: '#444',
+          color: theme === 'dark' ? '#e0e0e0' : '#444',
           fontWeight: 400,
           letterSpacing: '0.5px'
         }}>
@@ -177,11 +178,17 @@ const SessionSelector: React.FC = () => {
               mt: 2,
               '& .MuiOutlinedInput-root': {
                 '& fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.15)'
+                  borderColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.15)'
                 },
                 '&:hover fieldset': {
-                  borderColor: 'rgba(0, 0, 0, 0.25)'
+                  borderColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.25)'
                 }
+              },
+              '& .MuiInputLabel-root': {
+                color: theme === 'dark' ? '#e0e0e0' : 'inherit'
+              },
+              '& .MuiInputBase-input': {
+                color: theme === 'dark' ? '#e0e0e0' : 'inherit'
               }
             }}
           />
@@ -194,16 +201,18 @@ const SessionSelector: React.FC = () => {
                   cursor: 'pointer',
                   borderRadius: 1,
                   mb: 1,
-                  backgroundColor: session.id === currentSession?.id ? 'rgba(0, 0, 0, 0.03)' : 'inherit',
+                  backgroundColor: session.id === currentSession?.id 
+                    ? (theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)') 
+                    : 'inherit',
                   '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.02)'
+                    backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(0, 0, 0, 0.02)'
                   }
                 }}
                 onClick={() => switchSession(session.id)}
               >
                 <ListItemText
-                  primary={<Typography sx={{ color: '#333', letterSpacing: '0.3px', fontWeight: 400 }}>{session.name}</Typography>}
-                  secondary={<Typography variant="caption" sx={{ color: '#777', letterSpacing: '0.2px', fontWeight: 300 }}>{`Created: ${session.createdAt.toLocaleDateString()}`}</Typography>}
+                  primary={<Typography sx={{ color: theme === 'dark' ? '#e0e0e0' : '#333', letterSpacing: '0.3px', fontWeight: 400 }}>{session.name}</Typography>}
+                  secondary={<Typography variant="caption" sx={{ color: theme === 'dark' ? '#888' : '#777', letterSpacing: '0.2px', fontWeight: 300 }}>{`Created: ${session.createdAt.toLocaleDateString()}`}</Typography>}
                 />
                 <ListItemSecondaryAction>
                   <Tooltip title="Edit session name">
